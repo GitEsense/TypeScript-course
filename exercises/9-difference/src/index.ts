@@ -9,39 +9,37 @@
 interface IA {
     a: number;
     b: string;
-    c?: boolean;
-    d?: number;
-    e?: boolean;
+    c: boolean;
+    d: number;
+    e: boolean;
 }
 
 interface IB {
-    a?: number;
-    b?: string;
-    c?: boolean;
-    d?: number;
-    e?: boolean;
+    a: number;
+    b: string;
+    e: number;
 }
 
-type IDifference = Omit<IA, keyof IB>; // Pick<IA, Exclude<keyof IA, keyof IB>>
-type IReduce<T> = {
-    [key: string]: T;
+type IDifference<T, K> = {
+    [key in keyof Omit<T, keyof K>]: T[key];
 };
+
 type key = number | string | symbol;
-function diff<T extends Record<key, any>, K extends Record<key, any>>(a: T, b: K): IDifference {
+
+function diff<T extends Record<key, any>, K extends Record<key, any>>(a: T, b: K): IDifference<T, K> {
     return Object.entries(a)
         .filter(([f]) => !Object.keys(b).includes(f))
-        .reduce((map, item) => {
-            const [key, value] = item;
-            return { ...map, ...{ [key]: value } };
-        }, {}) as IDifference;
+        .reduce<IDifference<T, K>>((map, [key, value]) => {
+            map[key as keyof IDifference<T, K>] = value;
+            return map;
+        }, {} as IDifference<T, K>);
 }
 
-let a0: IA = { a: 10, b: 'str', d: 5, e: true };
-let b0: IB = { a: 10, c: true };
+let a0: IA = { a: 10, b: 'str', c: false, d: 5, e: true };
+let b0: IB = { a: 10, b: 'num', e: 5 };
 const v0 = diff(a0, b0);
-console.log(v0);
 
-let a1: IA = { a: 10, b: 'str', d: 5, e: true };
-let b1: IB = { c: true, e: true };
+let a1: IA = { a: 10, b: 'str', c: false, d: 5, e: true };
+let b1: IB = { a: 10, b: 'num', e: 5 };
 const v1 = diff(a1, b1);
 console.log(v1);
