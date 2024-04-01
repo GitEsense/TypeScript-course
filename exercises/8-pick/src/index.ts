@@ -18,15 +18,15 @@ const user: IUser = {
 
 type key = string | symbol | number;
 interface IReduce<T> {
-    [key: key]: T;
+    [Key: key]: T[keyof T];
 }
-function pickObjectKeys<T extends Record<key, any>>(user: T, pattern: Array<keyof T>): IReduce<T> {
+function pickObjectKeys<T extends IUser, K extends Array<keyof T>>(user: T, pattern: K) {
     return pattern.reduce((result: IReduce<T>, item) => {
         const currentItem = user[item];
         result[item] = currentItem;
         return result;
-    }, {});
+    }, {}) as Pick<T, K[number]>;
 }
 
-const res = pickObjectKeys(user, ['age', 'roles']);
-console.log(res);
+const res = pickObjectKeys(user, ['age', 'skills']);
+console.log(res.skills);
