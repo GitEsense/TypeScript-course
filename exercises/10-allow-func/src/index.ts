@@ -52,7 +52,6 @@ function isMale(sex: Gender): boolean {
 }
 
 class User {
-    [x: string]: any;
     @allowFunc(checkPattern)
     age: number;
     @allowFunc(isMale)
