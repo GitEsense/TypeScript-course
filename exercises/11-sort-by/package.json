@@ -1,0 +1,25 @@
+{
+  "name": "11-sort-by",
+  "version": "1.0.0",
+  "description": "PurpleSchool homework 11-sort-by",
+  "main": "./dist/app.js",
+  "scripts": {
+    "build": "tsc && npm run start",
+    "start": "node ./dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "homeworks",
+    "purpleschool",
+    "sort-by",
+    "kld_ch_a",
+    "types",
+    "ts",
+    "dts"
+  ],
+  "author": "kld_ch_a",
+  "license": "ISC",
+  "dependencies": {
+    "sort-by": "^1.2.0"
+  }
+}
