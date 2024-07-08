@@ -1,0 +1,22 @@
+{
+    "name": "13-proxy",
+    "version": "1.0.0",
+    "description": "PurpleSchool homework 13-proxy",
+    "main": "./dist/app.js",
+    "scripts": {
+        "build": "tsc && npm run start",
+        "start": "node --experimental-fetch ./dist/app.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "homeworks",
+        "purpleschool",
+        "builder",
+        "kld_ch_a",
+        "types",
+        "ts",
+        "dts"
+    ],
+    "author": "kld_ch_a",
+    "license": "ISC"
+}
