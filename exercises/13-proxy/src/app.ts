@@ -64,7 +64,7 @@ class FetchBuilder {
     private url: string;
     private headers: Record<key, string> = {};
     private body: Record<key, string> = {};
-    private method: keyof typeof FetchMethods;
+    private method: keyof typeof FetchMethods = 'GET';
 
     addMethod(method: keyof typeof FetchMethods) {
         this.method = FetchMethods[method];
@@ -126,7 +126,7 @@ class RequestAPI implements IRequestAPI{
 
     async sendRequestToDummy(id: number = 1): Promise<Products[]>  {
         const urlDefault = 'https://dummyjson.com/products/'
-        this.products = await this.builder.clear().addMethod('GET').headerAppend('Content-Type', 'application/json').addUrl(urlDefault + id).exec()
+        this.products = await this.builder.headerAppend('Content-Type', 'application/json').addUrl(urlDefault + id).exec()
         console.log({id, status: 'SUCCESS', data: this.products})
         return this.products
     }
